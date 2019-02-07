@@ -1,17 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_migrate import Migrate
 
 
 app = Flask(__name__)
 
-app.config['SECRET KEY'] = 'Secret*23@'
+app.config['SECRET_KEY'] = 'Secret*23@'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://saccoplus:Today*123@127.0.0.1/saccoplus'
 
 db = SQLAlchemy(app)
+Bootstrap(app)
 migrate = Migrate(app, db)
-login_manager = LoginManager()
+login_manager = LoginManager(app)
 login_manager.login_message = "You must be logged in to access this page."
 login_manager.login_view = "auth.login"
 

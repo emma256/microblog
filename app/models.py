@@ -67,9 +67,7 @@ class Department(db.Model):
 
 
 class Role(db.Model):
-    """
-    Create a Role table
-    """
+    
 
     __tablename__ = 'roles'
 
