@@ -32,13 +32,8 @@ def register():
     # load registration template
     return render_template('auth/register.html', form=form, title='Register')
 
-
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    """
-    Handle requests to the /login route
-    Log an employee in through the login form
-    """
     form = LoginForm()
     if form.validate_on_submit():
 
@@ -50,8 +45,11 @@ def login():
             # log employee in
             login_user(employee)
 
-            # redirect to the dashboard page after login
-            return redirect(url_for('home.dashboard'))
+            # redirect to the appropriate dashboard page
+            if employee.is_admin:
+                return redirect(url_for('home.admin_dashboard'))
+            else:
+                return redirect(url_for('home.dashboard'))
 
         # when login details are incorrect
         else:
@@ -73,3 +71,6 @@ def logout():
 
     # redirect to the login page
     return redirect(url_for('auth.login'))
+
+
+
